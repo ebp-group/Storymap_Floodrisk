@@ -390,7 +390,7 @@
 		
 		<script type="text/javascript" src="app/main-config.js"></script>
 		<script type="text/javascript">
-			require(["dojo/topic", "esri/map", "esri/InfoTemplate", "esri/dijit/PopupTemplate"], function(topic, map, InfoTemplate, PopupTemplate) {
+			require(["dojo/topic", "dojo/query", "esri/map", "esri/InfoTemplate", "esri/dijit/PopupTemplate"], function(topic, query, map, InfoTemplate, PopupTemplate) {
 				/*
 				 * Custom Javascript to be executed while the application is initializing goes here
 				 */
@@ -401,6 +401,7 @@
 					 * Custom Javascript to be executed when the application is ready goes here
 
 					 */
+					 console.log("Map Journal is ready");
 				});
 				// When a section is being loaded (don't wait for the Main Stage media to be loaded) 
 				topic.subscribe("story-load-section", function(index){
@@ -415,13 +416,15 @@
 						console.log("The map", result.id, "has been loaded from a Main Stage Action");
 						
 					console.log("Current map", app.map);
-					console.log("IDs of all the webmaps used in the story", app.data.getWebmaps());
-					var actualMap = app.map;
-					if(actualMap.id = "esri.Map_0") //Current Risk Situation Map
-					{
-						//var layers = actualMap.operationalLayers;
+					//console.log("IDs of all the webmaps used in the story", app.data.getWebmaps());
+					
+						// Definiere Popup-Templates für die anklickbaren Layer 
+						var actualMap = app.map;
+						//Ids von Layern herausfinden (nur für Entwicklung notwendig) 
 						//console.log(actualMap.getLayersVisibleAtScale());
-						var layer = actualMap.getLayer("urban_floodrisk_service_9814");
+
+						//Popup für Karte "Current Risk Situation, Risiko-Flächen"
+						var layer = actualMap.getLayer("urban_floodrisk_service_289");
 						if(layer)
 						{
 							var content = "<table class='attrTable' cellpadding='0px' cellspacing='0px'><tbody>" +
@@ -430,9 +433,9 @@
 											"<td class='attrValue'><b>{total_losses}</b></td> " +
 											"</tr>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Economic losses:</td>" +
+											"<td class=attrName'>Personal damage:</td>" +
 											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
-											"{eco_loss_img}" +
+											"{pers_damage_img}" +
 											"' width='110' height='50' border='0' /></td> " +
 											"</tr>" +
 											"<tr valign='top'>" + 
@@ -442,13 +445,16 @@
 											"' width='110' height='50' border='0' /></td> " +
 											"</tr>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Personal damage:</td>" +
+											"<td class=attrName'>Economic losses:</td>" +
 											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
-											"{pers_damage_img}" +
+											"{eco_loss_img}" +
 											"' width='110' height='50' border='0' /></td> " +
 											"</tr>" +
+											
+											
 
 											"</table>" +
+											"<div class='hzLine'></div>" +
 											"{description}";
 
 							var popupTemplate = new PopupTemplate({
@@ -457,19 +463,80 @@
 							});
 							layer.setInfoTemplate(popupTemplate);
 						}
-/*		
-						<div class="header" dojoattachpoint="_title">Future Risk Situation: H2</div>
-						<div class="hzLine"></div>
+						//Popup für Karte "Cost Effective Measures, Measures"
+						layer = actualMap.getLayer("urban_floodrisk_service_9720");
+						if(layer)
+						{
+							var content = "<table class='attrTable' cellpadding='0px' cellspacing='0px'><tbody>" +
+											"<tr valign='top'>" + 
+											"<td class=attrName'>Investment costs:</td>" +
+											"<td class='attrValue'>{investment_cost}</td> " +
+											"</tr>" +
+											"<tr valign='top'>" + 
+											"<td class=attrName'>Total annual costs:</td>" +
+											"<td class='attrValue'>{annual_cost}</td> " +
+											"</tr>" +
+											"<tr valign='top'>" + 
+											"<td class=attrName'>Risk reduction:</td>" +
+											"<td class='attrValue'>{risk_reduction}</td> " +
+											"</tr>" +
+											"<tr valign='top'>" + 
+											"<td class=attrName'>Cost-effectiveness:</td>" +
+											"<td class='attrValue'>{cost_effectiveness}</td> " +
+											"</tr>" +
 
-						<table class="attrTable" cellpadding="0px" cellspacing="0px"><tbody>
-						<tr valign="top">
-						<td class="attrName">risk_economic_1</td>
-						<td class="attrValue"><span class="esriNumericValue">4</span></td>
-						</tr>
-						<tr valign="top"><td class="attrName">risk_economic_2</td><td class="attrValue"><span class="esriNumericValue">3</span></td></tr></tbody></table>
-						*/
+											"</table>" +
+											"<div class='hzLine'></div>" +
+											"{description}";
 
-					}
+							var popupTemplate = new PopupTemplate({
+	  							title: "{shortname}",
+	  							description: content
+							});
+							layer.setInfoTemplate(popupTemplate);
+						}
+						//Popup für Karte "Current Risk Situation, Risiko-Flächen"
+						layer = actualMap.getLayer("urban_floodrisk_service_8301");
+						if(layer)
+						{
+							var content = "<table class='attrTable' cellpadding='0px' cellspacing='0px'><tbody>" +
+											"<tr valign='top'>" + 
+											"<td class=attrName'>Total losses:</td>" +
+											"<td class='attrValue'><b>{total_losses2}</b></td> " +
+											"</tr>" +
+											"<tr valign='top'>" + 
+											"<td class=attrName'>Personal damage:</td>" +
+											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
+											"{pers_damage_img2}" +
+											"' width='110' height='50' border='0' /></td> " +
+											"</tr>" +
+											"<tr valign='top'>" + 
+											"<td class=attrName'>Material damage:</td>" +
+											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
+											"{mat_damage_img2}" +
+											"' width='110' height='50' border='0' /></td> " +
+											"</tr>" +
+											"<tr valign='top'>" + 
+											"<td class=attrName'>Economic losses:</td>" +
+											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
+											"{eco_loss_img2}"+
+											"' width='110' height='50' border='0' /></td> " +
+											"</tr>" +
+																				
+
+											"</table>" +
+											"<div class='hzLine'></div>" +
+											"{description}";
+
+							var popupTemplate = new PopupTemplate({
+	  							title: "{longname}",
+	  							description: content
+							});
+							layer.setInfoTemplate(popupTemplate);
+						}
+
+						
+
 							
 					//console.log("Section", app.data.getCurrentSectionIndex(), "/", app.data.getStoryLength());
 					//console.log("Current section's data", app.data.getCurrentSection());
