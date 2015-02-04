@@ -390,7 +390,7 @@
 		
 		<script type="text/javascript" src="app/main-config.js"></script>
 		<script type="text/javascript">
-			require(["dojo/topic", "dojo/query", "esri/map", "esri/InfoTemplate", "esri/dijit/PopupTemplate"], function(topic, query, map, InfoTemplate, PopupTemplate) {
+			require(["dojo/topic", "dojo/query", "esri/map", "esri/InfoTemplate", "esri/dijit/PopupTemplate", "esri/dijit/Scalebar"], function(topic, query, map, InfoTemplate, PopupTemplate, Scalebar) {
 				/*
 				 * Custom Javascript to be executed while the application is initializing goes here
 				 */
@@ -423,32 +423,44 @@
 						//Ids von Layern herausfinden (nur für Entwicklung notwendig) 
 						//console.log(actualMap.getLayersVisibleAtScale());
 
+						//Scalebar hinzufügen
+						var scalebar = new Scalebar({
+          					map: actualMap,
+          					// "dual" displays both miles and kilmometers
+          					// "english" is the default, which displays miles
+          					// use "metric" for kilometers
+          					scalebarUnit: "dual"
+        				});
+
+
+
+
 						//Popup für Karte "Current Risk Situation, Risiko-Flächen"
 						var layer = actualMap.getLayer("urban_floodrisk_service_289");
 						if(layer)
 						{
 							var content = "<table class='attrTable' cellpadding='0px' cellspacing='0px'><tbody>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Total losses:</td>" +
+											"<td class=attrName' style='vertical-align:middle'>Total losses:</td>" +
 											"<td class='attrValue'><b>{total_losses}</b></td> " +
 											"</tr>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Personal damage:</td>" +
-											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
+											"<td class=attrName' style='vertical-align:middle'>Personal damage:</td>" +
+											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrm"+
 											"{pers_damage_img}" +
-											"' width='110' height='50' border='0' /></td> " +
+											"' width='88' height='40' border='0' /></td> " +
 											"</tr>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Material damage:</td>" +
-											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
+											"<td class=attrName' style='vertical-align:middle'>Material damage:</td>" +
+											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrm"+
 											"{mat_damage_img}" +
-											"' width='110' height='50' border='0' /></td> " +
+											"' width='88' height='40' border='0' /></td> " +
 											"</tr>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Economic losses:</td>" +
-											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
+											"<td class=attrName' style='vertical-align:middle'>Economic losses:</td>" +
+											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrm"+
 											"{eco_loss_img}" +
-											"' width='110' height='50' border='0' /></td> " +
+											"' width='88' height='40' border='0' /></td> " +
 											"</tr>" +
 											
 											
@@ -501,26 +513,26 @@
 						{
 							var content = "<table class='attrTable' cellpadding='0px' cellspacing='0px'><tbody>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Total losses:</td>" +
+											"<td class=attrName' style='vertical-align:middle'>Total losses:</td>" +
 											"<td class='attrValue'><b>{total_losses2}</b></td> " +
 											"</tr>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Personal damage:</td>" +
-											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
+											"<td class=attrName' style='vertical-align:middle'>Personal damage:</td>" +
+											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrm"+
 											"{pers_damage_img2}" +
-											"' width='110' height='50' border='0' /></td> " +
+											"' width='88' height='40' border='0' /></td> " +
 											"</tr>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Material damage:</td>" +
-											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
+											"<td class=attrName' style='vertical-align:middle'>Material damage:</td>" +
+											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrm"+
 											"{mat_damage_img2}" +
-											"' width='110' height='50' border='0' /></td> " +
+											"' width='88' height='40' border='0' /></td> " +
 											"</tr>" +
 											"<tr valign='top'>" + 
-											"<td class=attrName'>Economic losses:</td>" +
-											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrr"+
+											"<td class=attrName' style='vertical-align:middle'>Economic losses:</td>" +
+											"<td class='attrValue'><img src='http://storymaps.ebp.ch/ufrm"+
 											"{eco_loss_img2}"+
-											"' width='110' height='50' border='0' /></td> " +
+											"' width='88' height='40' border='0' /></td> " +
 											"</tr>" +
 																				
 
