@@ -67,6 +67,50 @@
 	<body class="claro">
 		<style>
 			/* CUSTOM CSS RULES */
+			/* Esri Popup Style überschreiben */
+			.esriPopup 
+			{
+				position: absolute; 
+				z-index: 40; 
+				font-family: 'open_sansregular', sans-serif;
+				font-size: 13px; 
+				border-radius: 5px; 
+				-webkit-border-radius: 5px;
+			}
+
+			.esriViewPopup .header {
+				font-weight: bold;
+				font-size:16px;
+			}
+
+			/* Bereich vom Haupttitel links oben (Hintergrund nun in blau, weisse Schrift) */
+			.sectionPanel .header {
+				position: relative;
+				height: 55px;
+				background-color:#346d9f; /* Esri Popup Style überschreiben */
+				font-family: 'open_sansregular', sans-serif; 
+			}
+			.sectionPanel .linkSocialContainer {
+				position: absolute;
+				top: 19px;
+				left: 25px;
+				z-index: 2;
+				font-size: 18px;
+			}
+			.sectionPanel .linkContainer {
+				color: #fff;
+			}
+			.sectionPanel .logoWrapper {
+				height: 50px;
+				vertical-align: bottom;
+				padding-bottom:2px;
+			}
+
+			/* App Titel verschwinden lassen (taucht recht komisch links oben auf, wenn man auf das zweite oder dritte Topic klickt*/
+			.sectionPanel .appTitle.anchored {
+				height: 0;
+				max-height: 100px;
+			}
 		</style>
 		
 		<!-- Builder top panel is injected here -->
