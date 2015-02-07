@@ -108,13 +108,23 @@
 			.sectionPanel .logoWrapper {
 				height: 50px;
 				vertical-align: bottom;
-				padding-bottom:2px;
+				padding-bottom:3px;
 			}
 
 			/* App Titel verschwinden lassen (taucht recht komisch links oben auf, wenn man auf das zweite oder dritte Topic klickt*/
 			.sectionPanel .appTitle.anchored {
 				height: 0;
 				max-height: 100px;
+			}
+
+			/*Custom Bereich für Namen der Autoren*/
+			.authors{
+				position: absolute;
+				left: 60px;
+				bottom: 1px;
+				z-index: 1000;
+				font-size: 10px;
+				background-color:#fff;
 			}
 		</style>
 		
@@ -177,13 +187,17 @@
 							</div>
 							<div class="builder-mask"></div>
 							<div class="firstAddExplain"></div>
+						<div class="authors">contact: <b>Christian Willi</b> (christian.willi@ebp.ch) | <b>Andreas Zysset</b> (andreas.zysset@ebp.ch)</div>
+						
 						</div>
+
 					</td>
 					<!-- Map -->
 					<td id="mainStagePanel">
 						<div id="mainStagePanelInner">
 							<div class="medias">
 								<!-- Maps and media injected here -->
+
 							</div>
 							<div id="mainStageLoadingIndicator" class="loadingIndicator">
 							<div class="load-indicator icon-spin1 animate-spin"></div>
